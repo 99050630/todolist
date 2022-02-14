@@ -14,6 +14,10 @@
     --darkGreen: #005A58;
 }
 
+input.datetimeInput{
+    padding: 5px 12px !important;
+}
+
 div#todolist{
     width: 100%;
     min-height: 100vh;
@@ -33,6 +37,69 @@ div#todolist{
         align-items: center;
         flex-direction: column;
     }
+        div.todolist_header{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: var(--lightPink);
+            padding: 20px;
+            border-radius: 10px;
+        }
+            div.todolist_header_title{
+                color: var(--darkBlue);
+            }
+            div.todolist_content{
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 20px 0;
+            }
+                div.todolist_content form{
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-direction: column;
+                }
+                    div.edit_header{
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        flex-direction: column;
+                    }
+                    div.edit_body{
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        padding: 20px 0;
+                    }
+                        div.edit_body .list_item{
+                            width: 90%;
+                            border: none !important;
+                            justify-content: space-between;
+                        }
+                    div.todolist_content input{
+                        width: 90%;
+                        padding: 7px 12px;
+                        border: none;
+                        background: transparent;
+                        border-bottom: 2px solid var(--darkBlue);
+                        outline: none;
+                    }
+                    div.todolist_content button{
+                        padding: 7px 12px;
+                        border: none;
+                        background-color: var(--darkGreen);
+                        color: #FFF;
+                        outline: none;
+                        margin-top: 20px;
+                    }
         div.list_container{
             width: 100%;
             display: flex;
@@ -40,7 +107,6 @@ div#todolist{
             align-items: center;
             flex-direction: column;
             padding: 20px;
-            box-sizing: border-box;
             background-color: var(--lightPink);
             margin: 20px 0;
             border-radius: 10px;
@@ -60,22 +126,27 @@ div#todolist{
                 div.list_header_right{
                     display: flex;
                 }
+                    div.list_header_right button{
+                        background: transparent;
+                        border: none;
+                    }
                 div.list_header i{
                     cursor: pointer;
                     font-size: 20px;
                     margin-left: 30px;
+                    color: var(--darkBlue)
                 }
                 div.list_header h2:first-letter{
                     text-transform: uppercase;
                 }
             div.list_content{
+                width: 100%;
                 padding: 50px 0;
             }
                 div.list_item{
-                    max-width: 800px;
                     width: 100%;
                     display: flex;
-                    justify-content: flex-start;
+                    justify-content: space-between;
                     align-items: center;
                     padding: 10px 0;
                     border-bottom: 2px solid var(--darkBlue);
@@ -95,7 +166,7 @@ div#todolist{
                     flex-direction: row;
                 }
                 div.list_footer input{
-                    width: 80%;
+                    width: 40%;
                     padding: 7px 12px;
                     border: none;
                     background: transparent;
