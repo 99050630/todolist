@@ -2,7 +2,7 @@
     include "functions/mysql_connect.php";
     include "functions/classes.php";
 
-    $todo = new toDoList($conn);
+    $todo = new toDoList($db_conn);
     //Remove content handelers
     if(isset($_POST['boardRemove']) && isset($_POST['boardRemoveId']) && $_POST['boardRemoveId'] != ""){
         $todo->removeUser($_POST['boardRemoveId']);
@@ -29,56 +29,23 @@
     <title>To do list | Jordan Bel | 99050630</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="functions/ajax.js"></script>
 </head>
 <body>
     <div id="todolist">
         <div class="todolist_container">
-            <div class="todolist_header">
-                <?php 
-                    if(isset($_POST['boardEdit']) && isset($_POST['boardEditId']) && $_POST['boardEditId'] != ''){
-                        $editResult = $todo->loadBoard($_POST['boardEditId']);
-                        ?>
-                            <div class="todolist_header_title">
-                                <h2>Bord bewerken</h2>
-                            </div>
-                            <div class="todolist_content">
-                                <form method="POST">
-                                    <div class="edit_header">
-                                        <h2>Bord naam</h2>
-                                        <input type="hidden" name="boardIdEdit" value="<?php echo $editResult[0]['id']; ?>">
-                                        <input type="text" name="boardNameEdit" placeholder="Bijv. boodschappenlijst.." value="<?php echo $editResult[0]['name']; ?>">
-                                    </div>
-                                    <div class="edit_body">
-                                        <h2>Bord items</h2>
-                                    <?php
-                                        $getBordInfo = $todo->loadBoardInfo($editResult[0]['id']);
-                                        for($j = 0; $j < count($getBordInfo); $j++){
-                                            echo "<div class=\"list_item\">";
-                                            echo    "<input type='text' name='listItemEdit[]' value='".$getBordInfo[$j]['desc_1']."'>";
-                                            echo    "<input type=\"datetime-local\" name=\"listDateEdit[]\" value=\"".$getBordInfo[$i]['date']."\">";
-                                            echo    "<button type='submit' name='boardRemove'><i class=\"fa-solid fa-trash-can\"></i></button>";
-                                            echo "</div>";
-                                        }
-                                    ?>
-                                    <button type="submit" name="boardEditSave">Bewerken</button>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php
-                    }else{
-                ?>
-                        <div class="todolist_header_title">
-                            <h2>Maak bord</h2>
-                        </div>
-                        <div class="todolist_content">
-                            <form method="POST">
-                                <input type="text" name="boardName" placeholder="Bijv. boodschappenlijst..">
-                                <button type="submit" name="newBoard">Aanmaken</button>
-                            </form>
-                        </div>
-                <?php 
-                    }
-                ?>
+            <div class="todolist_header" id="todolist_header">
+                <div class="todolist_header_title">
+                    <h2>Maak bord</h2>
+                </div>
+                <div class="todolist_content">
+                    <form method="POST" id="makeBoardForm">
+                        <input type="text" name="boardName" placeholder="Bijv. boodschappenlijst..">
+                        <button type="button" onclick="makeBoard()">Aanmaken</button>
+                    </form>
+                </div>
             </div>
             <?php 
                 $result = $todo->loadBoard();
@@ -91,33 +58,30 @@
                     echo "      <h2>".$result[$i]['name']."</h2>";
                     echo "      <div class=\"list_header_right\">";
                     echo "          <p>".$result[$i]['date']."</p>";
-                    echo "          <form method='POST'>";
-                    echo "              <input type='hidden' name='boardEditId' value='".$result[$i]['id']."'>";
-                    echo "              <button type='submit' name='boardEdit'><i class=\"fa-solid fa-pencil\"></i></button>";
-                    echo "          </form>";
-                    echo "          <form method='POST'>";
-                    echo "              <input type='hidden' name='boardRemoveId' value='".$result[$i]['id']."'>";
-                    echo "              <button type='submit' name='boardRemove'><i class=\"fa-solid fa-trash-can\"></i></button>";
-                    echo "          </form>";
+                    echo "          <select name='boardFilter' onchange=\"loadBoardItems(".$result[$i]['id'].", this.value)\">";
+                    echo "              <option value=''>Selecteer een filter..</option>";
+                    echo "              <option value='date ASC'>Datum/tijd oplopend</option>";
+                    echo "              <option value='date DESC'>Datum/tijd aflopend</option>";
+                    echo "              <option value='status ASC'>Status oplopend</option>";
+                    echo "              <option value='status DESC'>Status aflopend</option>";
+                    echo "          </select>";
+                    echo "          <i class=\"fa-solid fa-pencil\" onclick=\"boardAction('edit', '".$result[$i]['id']."')\"></i>";
+                    echo "          <i class=\"fa-solid fa-trash-can\" onclick=\"boardAction('remove', '".$result[$i]['id']."')\"></i>";
                     echo "      </div>";
                     echo "  </div>";
-                    echo "  <div class=\"list_content\">";
-                                $getBordInfo = $todo->loadBoardInfo($result[$i]['id']);
-                                for($j = 0; $j < count($getBordInfo); $j++){
-                                    echo "<div class=\"list_item\">";
-                                    echo    "<div>".$getBordInfo[$j]['desc_1']."</div>";
-                                    if($getBordInfo[$j]['date'] != "0000-00-00 00:00:00"){
-                                        echo    "<div>".$getBordInfo[$j]['date']."</div>";
-                                    }
-                                    echo "</div>";
-                                }
+                    echo "  <div class=\"list_content\" id=\"list_content_".$result[$i]['id']."\">";
+                                ?>
+                                    <script>
+                                        loadBoardItems(<?php echo $result[$i]['id']; ?>);
+                                    </script>
+                                <?php 
                     echo "  </div>";
                     echo "  <div class=\"list_footer\">";
-                    echo "      <form method=\"POST\">";
-                    echo "          <input type='hidden' name='board_id' value=\"".$result[$i]['id']."\">";        
+                    echo "      <form method=\"POST\" id=\"addRowForm\">";
+                    echo "          <input type='hidden' name='boardId' value=\"".$result[$i]['id']."\">";        
                     echo "          <input type='text' name='addRow' placeholder=\"Nieuwe regel toevoegen..\">";
                     echo "          <input type='datetime-local' class=\"datetimeInput\" name='addTime'>";
-                    echo "          <button type='submit' name=\"addRowBtn\">Toevoegen</button>";        
+                    echo "          <button type='button' onclick=\"addNewRow('".$result[$i]['id']."');\">Toevoegen</button>";        
                     echo "      </form>";    
                     echo "  </div>";
                     echo "</div>";

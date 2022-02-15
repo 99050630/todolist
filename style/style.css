@@ -7,10 +7,15 @@
 }
 
 :root{
+    /* STANDARD COLORS */
+    --white: #FFF;
+    /* LIGHT COLORS */
     --lightBlue: #9CAAD8;
-    --darkBlue: #424656;
     --lightGray: #A6ABBD;
+    --lightPurple: #e2c2fd;
     --lightPink: #DA9AA2;
+    /* DARK COLORS */
+    --darkBlue: #424656;
     --darkGreen: #005A58;
 }
 
@@ -27,10 +32,10 @@ div#todolist{
     align-items: center;
     padding: 20px 0;
     box-sizing: border-box;
-    background-color: var(--lightBlue);
+    background-color: var(--white);
 }
     div.todolist_container{
-        max-width: 1200px;
+        max-width: 800px;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -43,7 +48,8 @@ div#todolist{
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: var(--lightPink);
+            background-color: var(--lightPurple);
+            box-shadow: 11px 11px 22px var(--lightGray);
             padding: 20px;
             border-radius: 10px;
         }
@@ -107,9 +113,10 @@ div#todolist{
             align-items: center;
             flex-direction: column;
             padding: 20px;
-            background-color: var(--lightPink);
+            background-color: var(--lightPurple);
             margin: 20px 0;
             border-radius: 10px;
+            box-shadow: 11px 11px 22px var(--lightGray);
             transition: all 0.3s ease-in-out;
         }
             div.list_container:hover{
@@ -125,10 +132,19 @@ div#todolist{
             }  
                 div.list_header_right{
                     display: flex;
+                    align-items: center;
                 }
                     div.list_header_right button{
                         background: transparent;
                         border: none;
+                    }
+                    div.list_header_right select{
+                        padding: 5px 7px;
+                        background: transparent;
+                        border: none;
+                        border-bottom: 1px solid var(--darkBlue);
+                        margin-left: 30px;
+                        outline: none;
                     }
                 div.list_header i{
                     cursor: pointer;
@@ -151,6 +167,15 @@ div#todolist{
                     padding: 10px 0;
                     border-bottom: 2px solid var(--darkBlue);
                 }
+                    div.list_item_status{
+                        display: flex;
+                        justify-content: space-evenly;
+                        align-items: center;
+                        flex-direction: row;
+                    }
+                        div.list_item_status div{
+                            margin-left: 20px;
+                        }
             div.list_footer{
                 width: 100%;
                 display: flex;
