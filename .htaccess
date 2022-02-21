@@ -1,0 +1,13 @@
+RewriteEngine On
+
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2&t=$3&v=$4&e=$5&g=$6&h=$7 [l]
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2&t=$3&v=$4&e=$5&g=$6 [l]
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2&t=$3&v=$4&e=$5 [l]
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2&t=$3&v=$4 [l]
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2&t=$3 [l]
+RewriteRule	^([a-z0-9].*)/([a-z0-9].*)/$ ?p=$1&s=$2 [l]
+RewriteRule	^([a-z0-9].*)/$ ?p=$1 [l]

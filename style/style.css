@@ -19,8 +19,29 @@
     --darkGreen: #005A58;
 }
 
+.logout_container{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+    .logout_container i{
+        font-size: 30px;
+        color: var(--darkBlue);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        margin-left: 20px;
+    }
+        .logout_container i:hover{
+            color: var(--darkGreen);
+            transition: all 0.3s ease-in-out;
+        }
+
 input.datetimeInput{
     padding: 5px 12px !important;
+}
+
+button{
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 div#todolist{
@@ -48,8 +69,8 @@ div#todolist{
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: var(--lightPurple);
-            box-shadow: 11px 11px 22px var(--lightGray);
+            background-color: #f8f8f8;
+            box-shadow: 0px 6px 22px var(--lightGray);
             padding: 20px;
             border-radius: 10px;
         }
@@ -106,6 +127,9 @@ div#todolist{
                         outline: none;
                         margin-top: 20px;
                     }
+    div#all_list_container{
+        width: 100%;
+    }
         div.list_container{
             width: 100%;
             display: flex;
@@ -113,10 +137,10 @@ div#todolist{
             align-items: center;
             flex-direction: column;
             padding: 20px;
-            background-color: var(--lightPurple);
+            background-color: #f8f8f8;
+            box-shadow: 0px 6px 22px var(--lightGray);
             margin: 20px 0;
             border-radius: 10px;
-            box-shadow: 11px 11px 22px var(--lightGray);
             transition: all 0.3s ease-in-out;
         }
             div.list_container:hover{
@@ -206,3 +230,95 @@ div#todolist{
                     outline: none;
                 }
         
+div.login_container{
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    box-shadow: 0px 6px 22px var(--lightGray);
+    padding: 40px 0;
+}
+    div.login_container h2{
+        color: var(--darkGreen);
+    }
+    div.login_container form{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+        div.form_item{
+            width: 80%;
+            padding: 10px 0;
+        }
+            div.form_item input{
+                width: 100%;
+                border: none;
+                border-bottom: 2px solid var(--darkGreen);
+                background: transparent;
+                padding: 7px 10px;
+                outline: none;
+            }
+            div.form_item button{
+                width: 100%;
+                padding: 12px 20px;
+                border: none;
+                background-color: var(--darkGreen);
+                color: white;
+                font-weight: bold;
+                letter-spacing: 1px;
+                transition: all 0.3s ease-in-out;
+                outline: none;
+                cursor: pointer;
+            }
+                div.form_item button:hover{
+                    transform: scale(1.05);
+                    transition: all 0.3s ease-in-out;
+                }
+div.admin_user_container{
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    box-shadow: 0px 6px 22px var(--lightGray);
+    padding: 20px;
+}
+    div.admin_users{
+        width: 100%;
+        margin-top: 20px;   
+    }
+        div.admin_user_item{
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: row;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+            div.admin_user_item:hover{
+                transform: scale(1.02);
+                background-color: var(--lightPurple);
+                transition: all 0.3s ease-in-out;
+            }
+            div.admin_user_status{
+                width: 50px;
+            }
+div.admin_content{
+    width: calc(100% - 340px);
+    height: calc(100vh - 40px);
+    margin-left: 40px;
+    background-color: #f8f8f8;
+    box-shadow: 0px 6px 22px var(--lightGray);
+    overflow-y: auto;
+    padding: 0 20px;
+}
