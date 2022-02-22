@@ -1,7 +1,8 @@
 <?php 
+    error_reporting(E_ALL);
     include "../mysql_connect.php";
 
-    $selectAllUsers = $db_conn->prepare("SELECT `id`, `username`, `status` FROM users");
+    $selectAllUsers = $db_conn->prepare("SELECT `users`.`id`, `users`.`username`, `users`.`status`, `role`.`name` FROM users LEFT JOIN `role` ON `role`.`id`=`users`.`role_id`");
     $selectAllUsers->execute();
 
     while($resultAllUsers = $selectAllUsers->fetch()){
@@ -15,6 +16,19 @@
         echo "  </div>";
         echo "  <div class=\"admin_user_username\">";
         echo "      <p>".$resultAllUsers['username']."</p>";
+        echo "  </div>";
+        echo "  <div class=\"admin_user_roles\">";
+        echo "      <select name=\"admin_user_role\" onchange=\"chageUserRole(this.value, ".$resultAllUsers['id'].")\">";
+                $selectRoles = $db_conn->prepare("SELECT * FROM `role`");
+                $selectRoles->execute();
+                while($resultRoles = $selectRoles->fetch()){
+                    if($resultRoles['name'] == $resultAllUsers['name']){
+                        echo "<option value=\"".$resultRoles['id']."\" SELECTED>".$resultRoles['name']."</option>";
+                    }else{
+                        echo "<option value=\"".$resultRoles['id']."\">".$resultRoles['name']."</option>";
+                    }
+                }
+        echo "      </select>";
         echo "  </div>";
         echo "</div>";
     }

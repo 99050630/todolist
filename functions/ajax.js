@@ -39,6 +39,7 @@ function boardAction(type, id, name){
         data: {type: type, id: id},
         success: function(data){
             if(type == "remove"){
+                loadBoard();
             }else if(type == "edit"){
                 $("#todolist_header").html(data);
             }
@@ -95,9 +96,11 @@ function register(){
             if(data['message'] == "e"){
                 //Input velden leeg;
                 $('.form_item input').css('border-color', 'red');
-            }else if(data['message'] == ""){
+            }else if(data.length == 0){
+                console.log("ja mooi");
                 location.href = "";
             }else{
+                console.log("ja mooi2");
                 $("#error_form").html(data['message']);
             }
         },
@@ -153,6 +156,17 @@ function loadUserBoard(id){
         data: {type: "admin", user_id: id},
         success: function(data){
             $("#admin_content").html(data);
+        }
+    })
+}
+
+function chageUserRole(val, id){
+    $.ajax({
+        type: "POST",
+        url: "functions/ajax/func_change_user_role.php",
+        data: {val: val, id: id},
+        success: function(data){
+            loadUsers();
         }
     })
 }

@@ -16,6 +16,8 @@
                     setcookie("login_id", $resultUser['id'], time() + (86400 * 30), "/");
                     setcookie("login_name", $resultUser['name'], time() + (86400 * 30), "/");
                     $return_arr['message'] = "login";
+                }else{
+                    $return_arr['message'] = "e";
                 }
             }else{
                 $return_arr['message'] = "e";
@@ -30,10 +32,12 @@
                     $return_arr['message'] = "Deze gebruiksnaam is al in gebruik.";
                 }else{
                     $password = hash("sha256", $_POST['password']);
-                    $db_conn->query("INSERT INTO users (`name`,
+                    $db_conn->query("INSERT INTO users (`role_id`,
+                                                            `name`,
                                                             `username`,
                                                             `password`,
-                                                            `status`) VALUES ('".$_POST['name']."',
+                                                            `status`) VALUES (  '1',
+                                                                                '".$_POST['name']."',
                                                                                 '".$_POST['username']."',
                                                                                 '".$password."',
                                                                                 '1')");

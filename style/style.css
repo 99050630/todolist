@@ -298,7 +298,7 @@ div.admin_user_container{
         div.admin_user_item{
             width: 100%;
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             flex-direction: row;
             padding: 8px;
@@ -312,6 +312,11 @@ div.admin_user_container{
             }
             div.admin_user_status{
                 width: 50px;
+            }
+            div.admin_user_roles select{
+                border: none;
+                border-bottom: 2px solid var(--darkBlue);
+                background: transparent;
             }
 div.admin_content{
     width: calc(100% - 340px);

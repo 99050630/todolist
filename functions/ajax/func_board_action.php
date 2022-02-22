@@ -4,8 +4,9 @@
     if(isset($_GET['type']) && $_GET['type'] != ''){
         if($_GET['type'] == "remove"){
             if(isset($_GET['id']) && $_GET['id'] != ''){
-                $removeBoard = $this->db_conn->prepare("DELETE FROM bord WHERE id='".$boardId."'");
-                $removeBoardItems = $this->db_conn->prepare("DELETE FROM bord_items WHERE bord_id='".$boardId."'");
+                $boardId = $_GET['id'];
+                $removeBoard = $db_conn->prepare("DELETE FROM bord WHERE id='".$boardId."'");
+                $removeBoardItems = $db_conn->prepare("DELETE FROM bord_items WHERE bord_id='".$boardId."'");
 
                 $removeBoard->execute();
                 $removeBoardItems->execute();
