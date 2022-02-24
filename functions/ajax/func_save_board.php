@@ -12,7 +12,8 @@
         // print_r($board);
         // echo "</pre>";
         for($i = 0; $i < count($boardItems); $i++){
-            $getRowData = $db_conn->prepare("SELECT `id` FROM bord_items WHERE bord_id='".$_POST['boardIdEdit']."' LIMIT 1 OFFSET ".$indexCount."");
+            $getRowData = $db_conn->prepare("SELECT `id` FROM bord_items WHERE bord_id=:bordid LIMIT 1 OFFSET ".$indexCount."");
+            $getRowData->bindParam(":bordid", $_POST['boardIdEdit']);
             $getRowData->execute();
             $rowID = $getRowData->fetch();
 

@@ -16,7 +16,9 @@
     }else{
         $userID = $_COOKIE['login_id'];
     }
-    $stmt = $db_conn->prepare("SELECT * FROM bord WHERE `user_id`='".$userID."' AND `status`='1' $whereClause ORDER BY `date` DESC");
+    $stmt = $db_conn->prepare("SELECT * FROM bord WHERE `user_id`=:userid AND `status`=:status $whereClause ORDER BY `date` DESC");
+    $stmt->bindParam(":userid", $userID);
+    $stmt->bindParam(":status", "1");
     $stmt->execute();
     $i = 0;
     while($result = $stmt->fetch()){

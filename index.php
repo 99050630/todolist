@@ -2,23 +2,6 @@
     include "functions/mysql_connect.php";
     include "functions/classes.php";
 
-    $todo = new toDoList($db_conn);
-    //Remove content handelers
-    // if(isset($_POST['boardRemove']) && isset($_POST['boardRemoveId']) && $_POST['boardRemoveId'] != ""){
-    //     $todo->removeUser($_POST['boardRemoveId']);
-    // }
-    // //Edit content handelers
-    // if(isset($_POST['boardEditSave']) && isset($_POST['boardNameEdit']) && $_POST['boardNameEdit'] != '' && isset($_POST['listItemEdit'])){
-    //     $todo->updateBoard($_POST['boardNameEdit'], $_POST['boardIdEdit'], $_POST['listItemEdit']);
-    // }
-    // //Nieuwe content handelers
-    // if(isset($_POST['addRowBtn']) && isset($_POST['addRow']) && isset($_POST['addTime'])){
-    //     $todo->insertNewRow($_POST['board_id'], $_POST['addRow'], $_POST['addTime']);
-    // }
-    // if(isset($_POST['newBoard']) && isset($_POST['boardName']) && $_POST['boardName'] != ""){
-    //     $todo->makeBoard($_POST['boardName']);
-    // }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,46 +44,6 @@
                             </div>
                         </div>
                         <div id="all_list_container"></div>
-                        <?php 
-                            // $result = $todo->loadBoard('', $_COOKIE['login_id']);
-                            // echo "<pre>";
-                            // print_r($result);
-                            // echo "</pre>";
-                            // for($i = 0; $i < count($result); $i++){
-                            //     echo "<div class=\"list_container\" id=\"".$result[$i]['id']."\">";
-                            //     echo "  <div class=\"list_header\">";
-                            //     echo "      <h2>".$result[$i]['name']."</h2>";
-                            //     echo "      <div class=\"list_header_right\">";
-                            //     echo "          <p>".$result[$i]['date']."</p>";
-                            //     echo "          <select name='boardFilter' onchange=\"loadBoardItems(".$result[$i]['id'].", this.value)\">";
-                            //     echo "              <option value=''>Selecteer een filter..</option>";
-                            //     echo "              <option value='date ASC'>Datum/tijd oplopend</option>";
-                            //     echo "              <option value='date DESC'>Datum/tijd aflopend</option>";
-                            //     echo "              <option value='status ASC'>Status oplopend</option>";
-                            //     echo "              <option value='status DESC'>Status aflopend</option>";
-                            //     echo "          </select>";
-                            //     echo "          <i class=\"fa-solid fa-pencil\" onclick=\"boardAction('edit', '".$result[$i]['id']."')\"></i>";
-                            //     echo "          <i class=\"fa-solid fa-trash-can\" onclick=\"boardAction('remove', '".$result[$i]['id']."')\"></i>";
-                            //     echo "      </div>";
-                            //     echo "  </div>";
-                            //     echo "  <div class=\"list_content\" id=\"list_content_".$result[$i]['id']."\">";
-                            //                 ?>
-                                                 <script>
-                            //                        loadBoardItems(<?php //echo $result[$i]['id']; ?>);
-                            //                     </script>
-                                             <?php 
-                            //     echo "  </div>";
-                            //     echo "  <div class=\"list_footer\">";
-                            //     echo "      <form method=\"POST\" id=\"addRowForm\">";
-                            //     echo "          <input type='hidden' name='boardId' value=\"".$result[$i]['id']."\">";        
-                            //     echo "          <input type='text' name='addRow' placeholder=\"Nieuwe regel toevoegen..\">";
-                            //     echo "          <input type='datetime-local' class=\"datetimeInput\" name='addTime'>";
-                            //     echo "          <button type='button' onclick=\"addNewRow('".$result[$i]['id']."');\">Toevoegen</button>";        
-                            //     echo "      </form>";    
-                            //     echo "  </div>";
-                            //     echo "</div>";
-                            // }
-                        ?>
                         <script>
                             $(document).ready(function(){
                                 loadBoard();

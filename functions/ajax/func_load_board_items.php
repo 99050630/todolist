@@ -7,7 +7,8 @@
         $setFilter = "";
     }
 
-    $selectBoardItems = $db_conn->prepare("SELECT * FROM bord_items WHERE bord_id='".$_GET['id']."' ".$setFilter."");
+    $selectBoardItems = $db_conn->prepare("SELECT * FROM bord_items WHERE bord_id=:bord_id ".$setFilter."");
+    $selectBoardItems->bindParam(":bord_id", $_GET['id']);
     $selectBoardItems->execute();
     $i = 0;
     while($result = $selectBoardItems->fetch()){

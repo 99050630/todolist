@@ -5,8 +5,11 @@
         if($_GET['type'] == "remove"){
             if(isset($_GET['id']) && $_GET['id'] != ''){
                 $boardId = $_GET['id'];
-                $removeBoard = $db_conn->prepare("DELETE FROM bord WHERE id='".$boardId."'");
-                $removeBoardItems = $db_conn->prepare("DELETE FROM bord_items WHERE bord_id='".$boardId."'");
+                $removeBoard = $db_conn->prepare("DELETE FROM bord WHERE id=:id");
+                $removeBoardItems = $db_conn->prepare("DELETE FROM bord_items WHERE bord_id=:bord_id");
+
+                $removeBoard->bindParam(":id", $boardId);
+                $removeBoardItems->bindParam(":bord_id", $boardId);
 
                 $removeBoard->execute();
                 $removeBoardItems->execute();
@@ -18,7 +21,8 @@
                 echo "<div class=\"todolist_header_title\">";
                 echo "    <h2>Bord bewerken</h2>";
                 echo "</div>";
-                $selectBoardInfo = $db_conn->prepare("SELECT `name`, `id` FROM bord WHERE id='".$_GET['id']."'");
+                $selectBoardInfo = $db_conn->prepare("SELECT `name`, `id` FROM bord WHERE id=:id");
+                $selectBoardInfo->bindParam(":id", $_GET['id']);
                 $selectBoardInfo->execute();
                 $resultBoard = $selectBoardInfo->fetch();
                 ?>
@@ -32,7 +36,8 @@
                         <div class="edit_body">
                             <h2>Bord items</h2>
                         <?php
-                            $selectBoardItems = $db_conn->prepare("SELECT * FROM bord_items WHERE bord_id='".$resultBoard['id']."'");
+                            $selectBoardItems = $db_conn->prepare("SELECT * FROM bord_items WHERE bord_id=:bord_id");
+                            $selectBoardItems->bindParam(":bord_id", $resultBoard['id']);
                             $selectBoardItems->execute();
                             while($getBordInfo = $selectBoardItems->fetch()){
                                 echo "<div class=\"list_item\">";
