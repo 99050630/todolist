@@ -5,18 +5,18 @@
         if($_POST['type'] == "login"){
             if($_POST['username'] != "" && $_POST['password'] != ""){
                 $password = hash("sha256", $_POST['password']);
-                $selectUserCount = $db_conn->prepare("SELECT COUNT('id') AS rowCount FROM users WHERE username=:username AND password=:passwrd AND status=:stts");
+                $selectUserCount = $db_conn->prepare("SELECT COUNT('id') AS rowCount FROM users WHERE username=:username AND password=:passwrd AND status=1");
                 $selectUserCount->bindParam(":username", $_POST['username']);
                 $selectUserCount->bindParam(":passwrd", $password);
-                $selectUserCount->bindParam(":stts", "1");
+                // $selectUserCount->bindParam(":stts", "1");
                 $selectUserCount->execute();
                 $num_rows = $selectUserCount->fetchColumn();
                 if($num_rows > 0){
                     //User gevonden
-                    $selectUser = $db_conn->prepare("SELECT `id`, `name` FROM users WHERE username=:username AND password=:passwrd AND status=:stts");
+                    $selectUser = $db_conn->prepare("SELECT `id`, `name` FROM users WHERE username=:username AND password=:passwrd AND status=1");
                     $selectUser->bindParam(":username", $_POST['username']);
                     $selectUser->bindParam(":passwrd", $password);
-                    $selectUser->bindParam(":stts", "1");
+                    // $selectUser->bindParam(":stts", "1");
                     $selectUser->execute();
                     $resultUser = $selectUser->fetch();
                     setcookie("login_id", $resultUser['id'], time() + (86400 * 30), "/");
